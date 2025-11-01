@@ -1,10 +1,19 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { TodoItem, type todoItem } from './todoItem.tsx';
+import { createItem, removeItem, listItems } from '../api.tsx';
 
 export default function TodoList() {
     const [itemList, setItems] = useState<todoItem[]>([]);
     const [inputText, setInputText] = useState<string>("");
     const [IDs, setIDs] = useState<Set<number>>(new Set());
+
+    useEffect(() => {
+        (async () => {
+            const data = await listItems();
+            setItems(data);
+            data.forEach(item => {setIDs(prev => prev.add(item.id))})
+        })();
+    }, []);
 
     function getNextID() {
         let id = 0;
@@ -19,20 +28,23 @@ export default function TodoList() {
         return id;
     }
 
-    function addTodo() {
+    async function addTodo() {
         if (inputText.length == 0) return;
 
         const newTodo: todoItem = { id: getNextID(), title: inputText };
         setItems(items => [...items, newTodo]);
         setInputText("");
+        await createItem(newTodo);
     }
 
-    function deleteTodo(id: number) {
+    async function deleteTodo(id: number) {
         setItems(items => items.filter(item => item.id != id));
+        await removeItem(id);
     }
 
-    function completeTodo(id: number) {
+    async function completeTodo(id: number) {
         deleteTodo(id);
+        await removeItem(id);
     }
 
     function handleKeyDown(event: React.KeyboardEvent) {

@@ -8,3 +8,4 @@ dependencies:
   - pip:
       - Django
       - djangorestframework
+      - django-cors-headers
