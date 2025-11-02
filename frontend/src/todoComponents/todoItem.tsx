@@ -1,52 +1,78 @@
+import { useState } from 'react';
+
 type todoItemProps = {
     item: todoItem;
-    onDelete: () => void;
+    changeTitle: (value: string) => void;
+    onCheck: (checked: boolean) => void;
     onCompletion: () => void;
 }
+
+export type todoStatus = "open" | "inProgress" | "done";
 
 export type todoItem = {
     id: number;
     title: string;
+    status: todoStatus;
+    checked: boolean;
 }
 
-export function TodoItem({ item, onDelete, onCompletion }: todoItemProps) {
+export function TodoItem({ item, changeTitle, onCheck, onCompletion }: todoItemProps) {
+    const [focused, setFocused] = useState(false);
+    const [checked, setChecked] = useState(false);
+
+    function checkBoxChanged(e: React.ChangeEvent<HTMLInputElement>) {
+        const newChecked = e.currentTarget.checked;
+        setChecked(newChecked);
+        item.checked = newChecked;
+        onCheck(newChecked);
+    }
+
     return (
         <li className={[
-            // container
-            "relative flex items-center p-1 sm:py-3.5",
-            "pl-12 pr-12",
-            "border-zinc-300 dark:bg-zinc-800/60 dark:border-zinc-600",
+            "relative flex justify-between p-1",
+            "bg-zinc-800/50",
             "rounded-xs transition-colors",
-            "border border-transparent hover:border-zinc-200 dark:hover:border-zinc-700",
-            " ",
+            "border-2 hover:bg-zinc-800",
+            focused ? "border-indigo-800" : "border-transparent",
         ].join(" ")}>
+            <section className={[
+                "relative flex px-10"
+            ].join(" ")}>
+                <input type="checkbox" id="checkbox" checked={checked} onChange={checkBoxChanged}
+                    className={[
+                        "absolute left-0 top-0 bottom-0 mx-5 my-auto h-5 w-5",
+                        "cursor-pointer",
+                    ].join(" ")}
+                />
+                <input
+                    className={[
+                        "text-left px-10 top-1 bottom-1",
+                        "sm:line-clamp-2",          // 1 line on mobile, up to 2 on sm+
+                        "outline-none",
+                        "text-xl"
+                    ].join(" ")}
+                    onChange={(value) => { item.title = value.target.value }}
+                    onFocus={() => setFocused(true)}
+                    onBlur={() => {
+                        setFocused(false);
+                        changeTitle(item.title);
+                    }}
+                    readOnly={false}
+                    defaultValue={item.title}
+                ></input>
+            </section>
             <button type="button" onClick={onCompletion}
                 className={[
-                    "absolute grid left-1 top-1 bottom-1 place-items-center rounded-xs w-1/4",
+                    "absolute top-0 bottom-0 right-0 px-10",
+                    "place-items-center",
                     "text-neutral-400",
-                    "shadow-sm",
-                    "bg-white/80 dark:bg-zinc-900",
-                    "hover:text-emerald-800",
+                    "bg-transparent",
+                    "text-xl",
+                    "hover:bg-emerald-600 transition",
                     "active:scale-95 transition",
+                    "cursor-pointer",
                 ].join(" ")}
-            >Done</button>
-            <label
-                className={[
-                    "mx-auto text-center",
-                    "truncate sm:line-clamp-2",          // 1 line on mobile, up to 2 on sm+
-                    "px-12",
-                ].join(" ")}
-            >{item.title}</label>
-            <button onClick={onDelete}
-                className={[
-                    "absolute grid right-1 top-1 bottom-1 place-items-center rounded-xs w-1/4",
-                    "shadow-sm",
-                    "text-neutral-400",
-                    "bg-white/80 dark:bg-zinc-900",
-                    "hover:text-rose-800",
-                    "active:scale-95 transition",
-                ].join(" ")}
-            >Delete</button>
+            >✅</button>
         </li>
     )
 }

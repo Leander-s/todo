@@ -1,6 +1,6 @@
 import { type todoItem } from "./todoComponents/todoItem.tsx";
 
-const API = "http://127.0.0.1:8000/api/todoItems/";
+const API = import.meta.env.VITE_APP_API_URL;
 
 export async function listItems(): Promise<todoItem[]> {
     const r = await fetch(API);
