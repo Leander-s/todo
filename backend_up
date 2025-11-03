@@ -1,3 +1,5 @@
 #!/bin/bash
 
+micromamba run -n django-backend python ./backend/manage.py makemigrations
+micromamba run -n django-backend python ./backend/manage.py migrate
 micromamba run -n django-backend python ./backend/manage.py runserver 8000 

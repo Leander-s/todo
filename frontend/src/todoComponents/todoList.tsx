@@ -31,8 +31,15 @@ export default function TodoList() {
     function addTodo() {
         if (inputText.length == 0) return;
 
-        const newTodo: todoItem = { id: getNextID(), title: inputText, status: "open", checked: false };
-        setItems(items => [...items, newTodo]);
+        const date = new Date().toISOString();
+        const newTodo: todoItem = {
+            id: getNextID(),
+            title: inputText,
+            status: "open",
+            checked: false,
+            createdAt: date
+        };
+        setItems(items => [...items, newTodo].sort((a, b) => Date.parse(a.createdAt) - Date.parse(b.createdAt)));
         setInputText("");
         createItem(newTodo);
     }
@@ -103,7 +110,7 @@ export default function TodoList() {
                     Delete
                 </button>
             </div>}
-            <ul className="w-full divide-y space-y-1 overflow-auto">
+            <ul className="w-full space-y-1 overflow-auto">
                 {itemList.map((item) => (
                     <TodoItem key={item.id} item={item}
                         changeTitle={(newTitle) => updateTitle(newTitle, item.id)}

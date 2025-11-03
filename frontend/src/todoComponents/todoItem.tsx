@@ -13,6 +13,7 @@ export type todoItem = {
     id: number;
     title: string;
     status: todoStatus;
+    createdAt: string;
     checked: boolean;
 }
 
@@ -29,8 +30,7 @@ export function TodoItem({ item, changeTitle, onCheck, onCompletion }: todoItemP
 
     return (
         <li className={[
-            "w-full",
-            "bg-transparent",
+            "flex-col bg-transparent border-transparent",
             "rounded-md transition-colors",
             "border hover:bg-zinc-900/50",
             focused ? "border-zinc-400" : "border-zinc-600",
