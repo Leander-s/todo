@@ -26,8 +26,8 @@ SECRET_KEY = 'django-insecure-abvn6_0sz-+o$n^7ih9l7vr0z3tkv&o-6a4*wdag_+fygd@*pt
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "https://93.193.29.231:8000",
     "https://leanderpcwindows.ddns.net",
+    "leanderpcwindows.ddns.net",
 ]
 
 
@@ -59,7 +59,6 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:4173",
-    "http://localhost:3000",
     "https://leander-s.github.io",
 ]
 
