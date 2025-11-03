@@ -9,3 +9,4 @@ dependencies:
       - Django
       - djangorestframework
       - django-cors-headers
+      - gunicorn
