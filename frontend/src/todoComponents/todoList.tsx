@@ -83,9 +83,9 @@ export default function TodoList() {
                 <ul className="divide-y space-y-1 overflow-auto">
                     {itemList.map((item) => (
                         <TodoItem key={item.id} item={item}
-                        changeTitle={(newTitle) => updateTitle(newTitle, item.id)}
-                        onCheck={(checked) => checkItem(item.id, checked)}
-                        onCompletion={() => completeTodo(item.id)} />
+                            changeTitle={(newTitle) => updateTitle(newTitle, item.id)}
+                            onCheck={(checked) => checkItem(item.id, checked)}
+                            onCompletion={() => completeTodo(item.id)} />
                     ))}
                 </ul>
                 <div className={["sticky bottom-0 flex gap-2 py-2 bg-transparent"
@@ -95,22 +95,25 @@ export default function TodoList() {
                         type="text"
                         placeholder="Add a task…"
                         className={[
-                            "flex-1 rounded-xs border p-2",
-                            "shadow-sm outline-none",
-                            "border-neutral-700",
-                            "bg-neutral-800",
-                            "focus:bg-neutral-700"
+                            "text-left top-1 bottom-1",
+                            "outline-none",
+                            "text-xl",
+                            "flex-1 rounded-md border px-2",
+                            "border-zinc-600",
+                            "bg-transparent",
+                            "focus:bg-zinc-900/50 focus:border-zinc-400",
                         ].join(" ")}
                         value={inputText}
                         onKeyDown={handleKeyDown}
                         onChange={(input) => setInputText(input.target.value)} />
                     <button
                         className={[
-                            "rounded-xs p-2 border font-medium text-neutral-400",
+                            "rounded-md px-2 border font-medium text-neutral-400",
                             "shadow-sm",
-                            "border-neutral-700",
-                            "bg-neutral-800",
+                            "border-zinc-600",
+                            "bg-transparent",
                             "hover:text-neutral-200",
+                            "focus:border-zinc-400",
                             "active:scale-95 transition",
                             "cursor-pointer",
                         ].join(" ")}

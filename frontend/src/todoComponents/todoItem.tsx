@@ -30,10 +30,10 @@ export function TodoItem({ item, changeTitle, onCheck, onCompletion }: todoItemP
     return (
         <li className={[
             "relative flex justify-between p-1",
-            "bg-zinc-800/50",
-            "rounded-xs transition-colors",
-            "border-2 hover:bg-zinc-800",
-            focused ? "border-indigo-800" : "border-transparent",
+            "bg-transparent",
+            "rounded-md transition-colors",
+            "border hover:bg-zinc-900/50",
+            focused ? "border-zinc-400" : "border-zinc-600",
         ].join(" ")}>
             <section className={[
                 "relative flex px-10"
@@ -70,6 +70,7 @@ export function TodoItem({ item, changeTitle, onCheck, onCompletion }: todoItemP
                     "text-xl",
                     "hover:bg-emerald-600 transition",
                     "active:scale-95 transition",
+                    "rounded-md",
                     "cursor-pointer",
                 ].join(" ")}
             >✅</button>
