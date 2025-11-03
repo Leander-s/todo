@@ -59,7 +59,7 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
 
-ROOT_URLCONF = 'config.urls'
+ROOT_URLCONF = 'todoBackend.urls'
 
 REST_FRAMEWORK = {
         "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
@@ -80,7 +80,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi.application'
+WSGI_APPLICATION = 'todoBackend.wsgi.application'
 
 
 # Database
