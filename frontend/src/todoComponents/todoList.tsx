@@ -78,66 +78,70 @@ export default function TodoList() {
     const anyChecked = checkedCount > 0;
 
     return (
-        <section className="py-10 block w-full mx-auto box-border min-h-screen max-w-none align-content-center">
-            <div className="px-10 w-screen mx-[calc(50%-50vw)]">
-                <ul className="divide-y space-y-1 overflow-auto">
-                    {itemList.map((item) => (
-                        <TodoItem key={item.id} item={item}
-                            changeTitle={(newTitle) => updateTitle(newTitle, item.id)}
-                            onCheck={(checked) => checkItem(item.id, checked)}
-                            onCompletion={() => completeTodo(item.id)} />
-                    ))}
-                </ul>
-                <div className={["sticky bottom-0 flex gap-2 py-2 bg-transparent"
-                ].join(" ")}>
-                    <input
-                        id="newItem"
-                        type="text"
-                        placeholder="Add a task…"
-                        className={[
-                            "text-left top-1 bottom-1",
-                            "outline-none",
-                            "text-xl",
-                            "flex-1 rounded-md border px-2",
-                            "border-zinc-600",
-                            "bg-transparent",
-                            "focus:bg-zinc-900/50 focus:border-zinc-400",
-                        ].join(" ")}
-                        value={inputText}
-                        onKeyDown={handleKeyDown}
-                        onChange={(input) => setInputText(input.target.value)} />
-                    <button
-                        className={[
-                            "rounded-md px-2 border font-medium text-neutral-400",
-                            "shadow-sm",
-                            "border-zinc-600",
-                            "bg-transparent",
-                            "hover:text-neutral-200",
-                            "focus:border-zinc-400",
-                            "active:scale-95 transition",
-                            "cursor-pointer",
-                        ].join(" ")}
-                        onClick={addTodo} >Add item</button>
-                </div>
-            </div>
-            <div className={[
-                "fixed left-1/2 bottom-10"
+        <section className={[
+            "py-10 flex-row",
+            "max-w-screen min-h-screen",
+            "align-content-center",
+        ].join(" ")}>
+            {anyChecked && <div className={[
+                "absolute top-10"
             ].join(" ")}>
                 <button
                     onClick={deleteCheckedTodos}
                     className={[
                         "rounded-xl p-2",
                         "transition-all",
-                        "bg-zinc-900",
-                        "border border-zinc-900",
-                        "text-s",
-                        "text-rose-900",
-                        "hover:border-rose-700 hover:text-rose-700",
+                        "bg-[#242424]",
+                        "border border-zinc-600",
+                        "text-xl",
+                        "text-rose-800",
+                        "hover:border-rose-500 hover:text-rose-500",
                         "active:scale-95",
-                        anyChecked ? "opacity-100" : "opacity-0",
-                    ].join(" ")}>
+                        "cursor-pointer",
+                    ].join(" ")}
+                >
                     Delete
                 </button>
+            </div>}
+            <ul className="w-full divide-y space-y-1 overflow-auto">
+                {itemList.map((item) => (
+                    <TodoItem key={item.id} item={item}
+                        changeTitle={(newTitle) => updateTitle(newTitle, item.id)}
+                        onCheck={(checked) => checkItem(item.id, checked)}
+                        onCompletion={() => completeTodo(item.id)} />
+                ))}
+            </ul>
+            <div className={["sticky bottom-0 flex gap-2 py-2 bg-transparent justify-between overflow-auto"
+            ].join(" ")}>
+                <input
+                    id="newItem"
+                    type="text"
+                    placeholder="Add a task…"
+                    className={[
+                        "text-left top-1 bottom-1",
+                        "outline-none",
+                        "text-xl",
+                        "flex-1 rounded-md border px-2",
+                        "border-zinc-600",
+                        "bg-[#242424]",
+                        "focus:bg-zinc-900 focus:border-zinc-400",
+                    ].join(" ")}
+                    value={inputText}
+                    onKeyDown={handleKeyDown}
+                    onChange={(input) => setInputText(input.target.value)} />
+                <button
+                    className={[
+                        "rounded-md px-2 border font-medium text-neutral-400",
+                        "shadow-sm",
+                        "border-zinc-600",
+                        "bg-[#242424]",
+                        "bg-transparent",
+                        "hover:text-neutral-200",
+                        "focus:border-zinc-400",
+                        "active:scale-95 transition",
+                        "cursor-pointer",
+                    ].join(" ")}
+                    onClick={addTodo} >Add item</button>
             </div>
         </section>
     )

@@ -57,9 +57,8 @@ MIDDLEWARE = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:5173",
-    "http://localhost:4173",
-    "https://leander-s.github.io",
+    "http://localhost",
+    "https://leander-s.github.io"
 ]
 
 ROOT_URLCONF = 'todoBackend.urls'
