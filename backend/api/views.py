@@ -6,5 +6,5 @@ from .serializers import TodoItemSerializer
 
 
 class TodoItemViewSet(ModelViewSet):
-    queryset = TodoItem.objects.order_by("+id")
+    queryset = TodoItem.objects.order_by("id")
     serializer_class = TodoItemSerializer
