@@ -10,16 +10,16 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      # Copy backend to the server
+      # Copy backend code to server
       - uses: appleboy/scp-action@v0.1.7
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "backend/*"
-          target: "~/app/"
+          target: "~/app/backend"   # put files into ~/app/backend
 
-      # Build & run the container on the server
+      # Build backend + run behind HTTPS (Caddy)
       - uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SSH_HOST }}
@@ -27,10 +27,33 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           script: |
             set -e
-            mkdir -p ~/app/backend
+
+            # Ensure network for reverse proxy
+            docker network ls --format '{{.Name}}' | grep -qx 'web' || docker network create web
+
+            # Build & (re)start backend (no public ports)
             cd ~/app/backend
             docker build -t todo-backend .
             docker rm -f todo-backend || true
-            docker run -d --name todo-backend --restart=always -p 8000:8000 \
+            docker run -d --name todo-backend --restart=always --network web \
               -e DJANGO_SECRET_KEY="${{ secrets.DJANGO_SECRET_KEY }}" \
               todo-backend
+
+            # Minimal Caddyfile (auto HTTPS)
+            mkdir -p ~/app/caddy
+            cat > ~/app/caddy/Caddyfile <<'EOF'
+            ${BACKEND_DOMAIN} {
+                reverse_proxy todo-backend:8000
+            }
+            EOF
+            sed -i "s|\${BACKEND_DOMAIN}|${{ secrets.BACKEND_DOMAIN }}|g" ~/app/caddy/Caddyfile
+
+            # Run Caddy on 80/443
+            docker rm -f caddy || true
+            docker volume create caddy_data >/dev/null
+            docker volume create caddy_config >/dev/null
+            docker run -d --name caddy --restart=always --network web \
+              -p 80:80 -p 443:443 \
+              -v caddy_data:/data -v caddy_config:/config \
+              -v ~/app/caddy/Caddyfile:/etc/caddy/Caddyfile:ro \
+              caddy:2
