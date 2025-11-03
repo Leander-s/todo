@@ -10,7 +10,7 @@ export default function TodoList() {
     useEffect(() => {
         (async () => {
             const data = await listItems();
-            setItems(data);
+            setItems(data.filter(item => item.status != "done"));
             data.forEach(item => { setIDs(prev => prev.add(item.id)) })
         })();
     }, []);
