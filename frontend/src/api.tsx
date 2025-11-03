@@ -3,6 +3,7 @@ import { type todoItem } from "./todoComponents/todoItem.tsx";
 const API = import.meta.env.VITE_API_URL;
 
 export async function listItems(): Promise<todoItem[]> {
+    console.log("Fetching items from API:", API);
     const r = await fetch(API);
     if (!r.ok) throw new Error("Fetching items failed");
     return r.json();
