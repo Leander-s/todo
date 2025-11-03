@@ -26,7 +26,8 @@ SECRET_KEY = 'django-insecure-abvn6_0sz-+o$n^7ih9l7vr0z3tkv&o-6a4*wdag_+fygd@*pt
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    "https://leander-s.github.io",
+    "https://93.193.29.231:8000",
+    "https://leanderpcwindow.ddns.net",
 ]
 
 
