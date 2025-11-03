@@ -17,6 +17,8 @@ jobs:
         with:
           node-version: 20
       - run: npm ci && npm run build
+        env:
+          VITE_API_URL: ${{ secrets.VITE_API_URL }}
         working-directory: frontend
       - uses: actions/upload-pages-artifact@v4
         with:
