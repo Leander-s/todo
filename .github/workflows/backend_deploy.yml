@@ -17,7 +17,7 @@ jobs:
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_KEY }}
           source: "backend/*"
-          target: "~/app/backend"
+          target: "~/app/"
 
       # Build & run the container on the server
       - uses: appleboy/ssh-action@v1.0.3
