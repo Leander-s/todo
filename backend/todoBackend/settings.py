@@ -25,7 +25,9 @@ SECRET_KEY = 'django-insecure-abvn6_0sz-+o$n^7ih9l7vr0z3tkv&o-6a4*wdag_+fygd@*pt
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "https://leander-s.github.io",
+]
 
 
 # Application definition
@@ -57,14 +59,14 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:4173",
     "http://localhost:3000",
-    "http://leander-s.github.io",
+    "https://leander-s.github.io",
 ]
 
 ROOT_URLCONF = 'todoBackend.urls'
 
 REST_FRAMEWORK = {
-        "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
-        }
+    "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
+}
 
 TEMPLATES = [
     {
