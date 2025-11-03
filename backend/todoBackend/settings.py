@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     "https://93.193.29.231:8000",
-    "https://leanderpcwindow.ddns.net",
+    "https://leanderpcwindows.ddns.net",
 ]
 
 
