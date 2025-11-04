@@ -100,7 +100,7 @@ export default function TodoList() {
                         "transition-all",
                         "bg-[#242424]",
                         "border border-zinc-600",
-                        "text-xl",
+                        "text:sm md:text-lg lg:text-xl",
                         "text-rose-800",
                         "hover:border-rose-500 hover:text-rose-500",
                         "active:scale-95",
@@ -127,7 +127,7 @@ export default function TodoList() {
                     className={[
                         "text-left top-1 bottom-1",
                         "outline-none",
-                        "text-xl",
+                        "text-sm md:text-lg lg:text-xl",
                         "flex-1 rounded-md border px-2",
                         "border-zinc-600",
                         "bg-[#242424]",
@@ -138,11 +138,12 @@ export default function TodoList() {
                     onChange={(input) => setInputText(input.target.value)} />
                 <button
                     className={[
-                        "rounded-md px-2 border font-medium text-neutral-400",
+                        "flex rounded-md px-2 border font-medium text-neutral-400",
                         "shadow-sm",
                         "border-zinc-600",
                         "bg-[#242424]",
                         "bg-transparent",
+                        "text-sm md:text-lg lg:text-xl",
                         "hover:text-neutral-200",
                         "focus:border-zinc-400",
                         "active:scale-95 transition",
