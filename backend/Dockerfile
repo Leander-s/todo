@@ -6,4 +6,4 @@ COPY . .
 ENV PYTHONUNBUFFERED=1
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py migrate && exec gunicorn todoBackend.wsgi:application --bind 0.0.0.0:8000"]
+CMD ["sh", "-c", "python manage.py migrate && exec gunicorn todoBackend.wsgi:application --bind 0.0.0.0:8000 --access-logfile -"]
